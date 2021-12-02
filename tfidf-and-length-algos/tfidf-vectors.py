@@ -1,5 +1,4 @@
 from os import X_OK
-import requests
 from collections import defaultdict
 import math
 import json
@@ -23,14 +22,10 @@ def dataAboutData(data):
     print("avg_num_of_chars_or_words_in_books_per_grade:")
     print( avg_num_of_chars_or_words_in_books_per_grade)
 
-# api-endpoint
-URL1 = "https://raw.githubusercontent.com/kevin-chen/NLP-Group-10-Final-Project/main/regular-data.json"
-# sending get request and saving the response as response object
-r1 = requests.get(url = URL1)
-# extracting data in json format
-data1 = r1.json()
-f = open('../one-large-text.json')
-data2 = json.load(f)
+f1 = open('../regular-data.json')
+f2 = open('../one-large-text.json')
+data1 = json.load(f1)
+data2 = json.load(f2)
 
 # dataAboutData(data1)
 # dataAboutData(data2)
