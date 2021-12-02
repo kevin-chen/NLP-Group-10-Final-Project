@@ -113,8 +113,10 @@ for term_freq_dict in term_freq_per_grade:
 # print(TFIDF_vectors[0])
 grades = ["0","1","2","3","4","5","6","7","8","9","10","11"]
 average_sentence_length_per_grade = []
+average_chars_per_sentence = []
 for grade in grades:
-    running_length_of_sentences = 0
+    running_num_of_words = 0
+    running_num_of_chars = 0
     num_of_sentences = 0
     for book in data2[grade]:
         sample_from_a_book = book["words"][10000:11000]
@@ -129,13 +131,17 @@ for grade in grades:
             
             if len(x) != 1: #avoid table of contents
                 for i in range(1,len(x)-1): #going through sentences
-                    sentence_length = len(x[i].split())
-                    if sentence_length != 1: # should i include this condition? 
-                        # print(grade + ": "+  str(sentence_length))
-                        running_length_of_sentences += sentence_length
+                    word_count = len(x[i].split())
+                    char_count = len(x[i])
+                    if word_count != 1: # should i include this condition? 
+                        # print(grade + ": "+  str(word_count))
+                        running_num_of_words += word_count
+                        running_num_of_chars += char_count
                         num_of_sentences +=1
-    average_sentence_length_per_grade.append(running_length_of_sentences//num_of_sentences)
+    average_sentence_length_per_grade.append(running_num_of_words//num_of_sentences)
+    average_chars_per_sentence.append(running_num_of_chars//num_of_sentences)
 print(average_sentence_length_per_grade)
+print(average_chars_per_sentence)
         #BUGGY SENTENCE LENGTH COUNTER
         # sample_from_a_book = sample_from_a_book.split()
         # i = 0
