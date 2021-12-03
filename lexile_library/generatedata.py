@@ -46,10 +46,12 @@ def getFilteredText(bookText):
     startIndex = bookText.find(startPhrase)
     endIndex = bookText.find(endPhrase)
 
+    print(startIndex, endIndex)
+
     if startIndex != -1 and endIndex != -1:
         return bookText[startIndex + len(startPhrase) : endIndex]
     else:
-        return "**N/A**"
+        return ""
 
 def getSampleFilterWords(stopWords, bookText):
     startPhrase = "START OF THIS PROJECT GUTENBERG EBOOK"
@@ -76,27 +78,30 @@ def getSampleFilterWords(stopWords, bookText):
     return ' '.join(sample(wordsFiltered, 100))
 
 
-
-def generateData(bookTitles, bookNums, lexileScores, bookMap):
+def generateData(bookTitles, bookNums, bookTexts, lexileScores):
     output = dict()
     stopWords = set(stopwords.words('english'))
+    
     for i in range(len(bookNums)):
         entry = dict()
-        bookNum = bookNums[i]
         bookTitle = bookTitles[i]
+        bookNum = bookNums[i]
+        bookText = bookTexts[i]
+
         lexileScore = lexileScores[i]
         grade = findGradeLevel(lexileScore)
-        bookText = bookMap[bookNum]
         filteredText = getFilteredText(bookText)
+        
+        if filteredText == "":
+            continue
+        
         entry["title"] = bookTitle
         entry["lexile"] = lexileScore
         entry["words"] = filteredText
-        # print(entry, bookTitle, bookNum, lexileScore, grade)
-        # print(output.get(grade, None))
+        
         if output.get(grade, None) == None:
             output[grade] = [entry]
         else:
             output[grade].append(entry)
-        # data[grade] = data.get(grade, []).append(entry)
-        # print(output)
+        
     return output

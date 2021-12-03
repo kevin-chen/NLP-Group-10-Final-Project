@@ -22,8 +22,9 @@ def parseBookshelves(bookshelves):
 
 
 def parseBookText(bookTitles, bookNums):
-    # foundBookTitles = []
-    # foundBookTexts = []
+    foundBookTitles = []
+    foundBookNums = []
+    foundBookTexts = []
     bookMap = dict()
     for i in range(len(bookNums)):
         bookTitle = bookTitles[i]
@@ -39,9 +40,8 @@ def parseBookText(bookTitles, bookNums):
             pass
         if bookTextRequest:
             bookText = BeautifulSoup(bookTextRequest.content, "html.parser").text
-            bookMap[bookNum] = bookText
-            # foundBookTitles.append(bookTitle)
-            # foundBookTexts.append(bookText)
-        else:
-            bookMap[bookNum] = "**N/A**"
-    return bookMap
+            # bookMap[bookNum] = bookText
+            foundBookTitles.append(bookTitle)
+            foundBookNums.append(bookNum)
+            foundBookTexts.append(bookText)
+    return foundBookTitles, foundBookNums, foundBookTexts

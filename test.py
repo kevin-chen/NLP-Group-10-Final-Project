@@ -1,15 +1,21 @@
 import lexile_library as lx
 
 bookTitles = ["Flower Fables", "Eight cousins"]
-bookNums = [1,2]
+bookNums = ['1','2']
+# bookMap = {
+#     "2": "fff",
+#     "1": "****** START OF THIS PROJECT GUTENBERG EBOOK  WORDS    END OF THE PROJECT GUTENBERG EBOOK"
+# }
+bookTexts = ["****** START OF THIS PROJECT GUTENBERG EBOOK  WORDS    END OF THE PROJECT GUTENBERG EBOOK", "fff"]
 
-bookMap = lx.parseBookText(bookTitles, bookNums)
-print("Book Map:", bookMap)
+# bookMap = lx.parseBookText(bookTitles, bookNums)
+# print(bookMap["2"])
+# print("Book Map:", bookMap)
 
 bookTitles, bookNums, lexileScores = lx.getAllLexileScores(bookTitles, bookNums)
-print("Output:", bookTitles, bookNums, lexileScores)
+# print("Output:", bookTitles, bookNums, lexileScores)
 
-data = lx.generateData(bookTitles, bookNums, lexileScores, bookMap)
+data = lx.generateData(bookTitles, bookNums, bookTexts, lexileScores)
 print("Output Data:", data)
 
 
