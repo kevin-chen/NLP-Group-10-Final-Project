@@ -42,4 +42,6 @@ def parseBookText(bookTitles, bookNums):
             bookMap[bookNum] = bookText
             # foundBookTitles.append(bookTitle)
             # foundBookTexts.append(bookText)
+        else:
+            bookMap[bookNum] = "**N/A**"
     return bookMap

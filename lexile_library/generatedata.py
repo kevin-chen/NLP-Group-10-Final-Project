@@ -49,7 +49,7 @@ def getFilteredText(bookText):
     if startIndex != -1 and endIndex != -1:
         return bookText[startIndex + len(startPhrase) : endIndex]
     else:
-        return ""
+        return "**N/A**"
 
 def getSampleFilterWords(stopWords, bookText):
     startPhrase = "START OF THIS PROJECT GUTENBERG EBOOK"
