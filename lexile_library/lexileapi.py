@@ -17,7 +17,7 @@ def getLexileScore(bookTitle):
   try:
     data = json.loads(response.content)['data']
     # print(data)
-    if data['total_results'] == 0 or data['results'][0]['measurements']['english']['lexile_code'] != "" or bookTitle != data['results'][0]['title']:
+    if data['total_results'] == 0 or data['results'][0]['measurements']['english']['lexile_code'] != "" or bookTitle.lower() != data['results'][0]['title'].lower():
       # print("Bad Result", data)
       return None
     else:
