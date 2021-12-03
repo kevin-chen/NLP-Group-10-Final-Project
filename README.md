@@ -9,7 +9,7 @@
 
 ## Commands
 - python3 -m venv env
-- source env/Scripts/activate
+- source env/bin/activate
 - pip3 install -r requirements.txt
 - python sandbox.py
 
@@ -35,6 +35,7 @@ pip install -r requirements.txt
 ```
 sbatch nlp-group10-init.sbatch
 squeue -u $USER
+tail -3 nlp-group10-init.out
 cat nlp-group10-init.out
 ```
 
