@@ -42,10 +42,11 @@ def findGradeLevel(lexileScore):
 
 def getFilteredText(bookText):
     startPhrase = "START OF THIS PROJECT GUTENBERG EBOOK"
-    endPhrase = "END OF THE PROJECT GUTENBERG EBOOK"
+    endPhrase = "END OF THIS PROJECT GUTENBERG EBOOK"
     startIndex = bookText.find(startPhrase)
     endIndex = bookText.find(endPhrase)
 
+    print(bookText)
     print(startIndex, endIndex)
 
     if startIndex != -1 and endIndex != -1:
@@ -90,14 +91,14 @@ def generateData(bookTitles, bookNums, bookTexts, lexileScores):
 
         lexileScore = lexileScores[i]
         grade = findGradeLevel(lexileScore)
-        filteredText = getFilteredText(bookText)
+        # filteredText = getFilteredText(bookText)
         
-        if filteredText == "":
-            continue
+        # if filteredText == "":
+        #     continue
         
         entry["title"] = bookTitle
         entry["lexile"] = lexileScore
-        entry["words"] = filteredText
+        entry["words"] = bookText # filteredText
         
         if output.get(grade, None) == None:
             output[grade] = [entry]
