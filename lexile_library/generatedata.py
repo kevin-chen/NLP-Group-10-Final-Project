@@ -39,7 +39,8 @@ def findGradeLevel(lexileScore):
     else:
         return None
 
-def getSampleFilterWords(stopWords, bookText):
+
+def getFilteredText(bookText):
     startPhrase = "START OF THIS PROJECT GUTENBERG EBOOK"
     endPhrase = "END OF THE PROJECT GUTENBERG EBOOK"
     startIndex = bookText.find(startPhrase)
@@ -50,23 +51,29 @@ def getSampleFilterWords(stopWords, bookText):
     else:
         return ""
 
-    # if startIndex != -1 and endIndex != -1:
-    #     words = word_tokenize(bookText[startIndex + len(startPhrase) : endIndex])
-    # else:
-    #     words = word_tokenize(bookText)
+def getSampleFilterWords(stopWords, bookText):
+    startPhrase = "START OF THIS PROJECT GUTENBERG EBOOK"
+    endPhrase = "END OF THE PROJECT GUTENBERG EBOOK"
+    startIndex = bookText.find(startPhrase)
+    endIndex = bookText.find(endPhrase)
+
+    if startIndex != -1 and endIndex != -1:
+        words = word_tokenize(bookText[startIndex + len(startPhrase) : endIndex])
+    else:
+        words = word_tokenize(bookText)
 
     # removes attached punctutations from words
-    # table = str.maketrans('', '', string.punctuation)
-    # stripped = [word.translate(table) for word in words]
+    table = str.maketrans('', '', string.punctuation)
+    stripped = [word.translate(table) for word in words]
 
-    # wordsFiltered = []
-    # for word in stripped:
-    #     if word not in stopWords and word.isalpha():
-    #         wordsFiltered.append(porter.stem(word.lower().strip()))
+    wordsFiltered = []
+    for word in stripped:
+        if word not in stopWords and word.isalpha():
+            wordsFiltered.append(porter.stem(word.lower().strip()))
 
-    # wordsFiltered = [word.lower().strip() for word in stripped if word not in stopWords and word.isalpha()]
-    # if len(wordsFiltered) <= 100: return wordsFiltered
-    # return ' '.join(sample(wordsFiltered, 100))
+    wordsFiltered = [word.lower().strip() for word in stripped if word not in stopWords and word.isalpha()]
+    if len(wordsFiltered) <= 100: return wordsFiltered
+    return ' '.join(sample(wordsFiltered, 100))
 
 
 
@@ -80,10 +87,10 @@ def generateData(bookTitles, bookNums, lexileScores, bookMap):
         lexileScore = lexileScores[i]
         grade = findGradeLevel(lexileScore)
         bookText = bookMap[bookNum]
-        sampledWords = getSampleFilterWords(stopWords, bookText)
+        filteredText = getFilteredText(bookText)
         entry["title"] = bookTitle
         entry["lexile"] = lexileScore
-        entry["words"] = sampledWords
+        entry["words"] = filteredText
         # print(entry, bookTitle, bookNum, lexileScore, grade)
         # print(output.get(grade, None))
         if output.get(grade, None) == None:
