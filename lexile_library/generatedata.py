@@ -46,12 +46,12 @@ def getFilteredText(bookText):
     startIndex = bookText.find(startPhrase)
     endIndex = bookText.find(endPhrase)
 
-    print(bookText)
-    print(startIndex, endIndex)
-
     if startIndex != -1 and endIndex != -1:
+        print("Clear")
         return bookText[startIndex + len(startPhrase) : endIndex]
     else:
+        print("Start, End Index:", startIndex, endIndex)
+        print("Phrase within text:", startPhrase in bookText, endPhrase in bookText)
         return ""
 
 def getSampleFilterWords(stopWords, bookText):
@@ -91,14 +91,14 @@ def generateData(bookTitles, bookNums, bookTexts, lexileScores):
 
         lexileScore = lexileScores[i]
         grade = findGradeLevel(lexileScore)
-        # filteredText = getFilteredText(bookText)
+        filteredText = getFilteredText(bookText)
         
-        # if filteredText == "":
-        #     continue
+        if filteredText == "":
+            continue
         
         entry["title"] = bookTitle
         entry["lexile"] = lexileScore
-        entry["words"] = bookText # filteredText
+        entry["words"] = filteredText
         
         if output.get(grade, None) == None:
             output[grade] = [entry]

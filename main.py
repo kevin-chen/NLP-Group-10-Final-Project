@@ -23,7 +23,7 @@ bookTitles, bookNums, lexileScores = lx.getAllLexileScores(bookTitles, bookNums)
 # print("Lexile Scores:", lexileScores)
 
 data = lx.generateData(bookTitles, bookNums, bookTexts, lexileScores)
-print("Output Data:", data)
+# print("Output Data:", data)
 
 for i in range(12):
     if i in data:
