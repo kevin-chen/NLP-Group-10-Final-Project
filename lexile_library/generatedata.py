@@ -40,7 +40,7 @@ def findGradeLevel(lexileScore):
         return None
 
 
-def getFilteredText(bookText):
+def getFilteredText(bookTitle, bookText):
     startPhrase = "START OF THIS PROJECT GUTENBERG EBOOK"
     endPhrase = "END OF THIS PROJECT GUTENBERG EBOOK"
     startIndex = bookText.find(startPhrase)
@@ -51,7 +51,7 @@ def getFilteredText(bookText):
         return bookText[startIndex + len(startPhrase) : endIndex]
     else:
         print("Start, End Index:", startIndex, endIndex)
-        print("Phrase within text:", startPhrase in bookText, endPhrase in bookText)
+        print("Phrase within text, Book Title:", bookTitle, startPhrase in bookText, endPhrase in bookText)
         return ""
 
 def getSampleFilterWords(stopWords, bookText):
@@ -91,7 +91,7 @@ def generateData(bookTitles, bookNums, bookTexts, lexileScores):
 
         lexileScore = lexileScores[i]
         grade = findGradeLevel(lexileScore)
-        filteredText = getFilteredText(bookText)
+        filteredText = getFilteredText(bookTitle, bookText)
         
         if filteredText == "":
             continue
