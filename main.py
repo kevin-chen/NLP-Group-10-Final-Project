@@ -29,6 +29,6 @@ for i in range(12):
     if i in data:
         print("Number of Texts in Grade:", i, len(data[i]))
 
-file = open("filtered-data-12-3-2021.json", "w")
+file = open("filtered-data-12-4-2021.json", "w")
 json.dump(data, file)
 file.close()

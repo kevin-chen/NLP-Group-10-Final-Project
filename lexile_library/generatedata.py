@@ -47,8 +47,8 @@ def getFilteredText(bookTitle, bookText):
     startThisIndex = bookText.find(startThisPhrase)
     endThisIndex = bookText.find(endThisPhrase)
 
-    startThePhrase = "START OF THIS PROJECT GUTENBERG EBOOK"
-    endThePhrase = "END OF THIS PROJECT GUTENBERG EBOOK"
+    startThePhrase = "START OF THE PROJECT GUTENBERG EBOOK"
+    endThePhrase = "END OF THE PROJECT GUTENBERG EBOOK"
 
     startTheIndex = bookText.find(startThePhrase)
     endTheIndex = bookText.find(endThePhrase)
@@ -58,11 +58,11 @@ def getFilteredText(bookTitle, bookText):
         return bookText[startThisIndex + len(startThisPhrase) : endThisIndex]
     elif startTheIndex != -1 and endTheIndex != -1:
         print("Clear The")
-        return bookText[startThePhrase + len(startThePhrase) : endTheIndex]
+        return bookText[startTheIndex + len(startThePhrase) : endTheIndex]
     else:
         print("Start, End This Index:", startThisIndex, endThisIndex)
         print("Start, End The Index:", startThePhrase, endTheIndex)
-        # print("Phrase within text, Book Title:", bookTitle, startPhrase in bookText, endPhrase in bookText)
+        print("Phrase within text, Book Title:", bookTitle, startPhrase in bookText, endPhrase in bookText)
         # print(bookText[:1500])
         return ""
 
