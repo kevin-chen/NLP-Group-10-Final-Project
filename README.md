@@ -31,7 +31,7 @@ pip install -r requirements.txt
 ```
 
 - Submit batch request
-
+ 
 ```
 sbatch nlp-group10-init.sbatch
 squeue -u $USER
