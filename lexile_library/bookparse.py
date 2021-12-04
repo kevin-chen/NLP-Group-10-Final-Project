@@ -33,11 +33,10 @@ def parseBookText(bookTitles, bookNums):
         try:
             bookTextRequest = requests.get("https://www.gutenberg.org/ebooks/" + str(bookNum) + ".txt.utf-8")
         except:
-            pass
-        try:
-            bookTextRequest = requests.get("https://www.gutenberg.org/files/" + str(bookNum) + "/" + str(bookNum) + "-0.txt")
-        except:
-            pass
+            try:
+                bookTextRequest = requests.get("https://www.gutenberg.org/files/" + str(bookNum) + "/" + str(bookNum) + "-0.txt")
+            except:
+                pass
         if bookTextRequest:
             bookText = BeautifulSoup(bookTextRequest.content, "html.parser").text
             # bookMap[bookNum] = bookText
