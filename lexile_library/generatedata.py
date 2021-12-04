@@ -61,10 +61,11 @@ def getFilteredText(bookTitle, bookText):
         return bookText[startTheIndex + len(startThePhrase) : endTheIndex]
     else:
         print("Start, End This Index:", startThisIndex, endThisIndex)
-        print("Start, End The Index:", startThePhrase, endTheIndex)
-        print("Phrase within text, Book Title:", bookTitle, startPhrase in bookText, endPhrase in bookText)
+        print("Start, End The Index:", startTheIndex, endTheIndex)
+        print("Phrase within text, Book Title:", bookTitle)
         # print(bookText[:1500])
         return ""
+
 
 def getSampleFilterWords(stopWords, bookText):
     startPhrase = "START OF THIS PROJECT GUTENBERG EBOOK"
