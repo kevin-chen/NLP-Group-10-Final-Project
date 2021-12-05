@@ -1,18 +1,8 @@
 import lexile_library as lx
+import numpy as np
 import json
 
-bookshelves = ["http://www.gutenberg.org/wiki/Children%27s_Literature_(Bookshelf)", 
-                "http://www.gutenberg.org/wiki/Children%27s_Fiction_(Bookshelf)",
-                "http://www.gutenberg.org/wiki/Adventure_(Bookshelf)",
-                "http://www.gutenberg.org/wiki/Fantasy_(Bookshelf)",
-                "http://www.gutenberg.org/wiki/Humor_(Bookshelf)",
-                "http://www.gutenberg.org/wiki/Mystery_Fiction_(Bookshelf)",
-                "http://www.gutenberg.org/wiki/Movie_Books_(Bookshelf)",
-                "http://www.gutenberg.org/wiki/Science_Fiction_(Bookshelf)",
-                "http://www.gutenberg.org/wiki/Children%27s_History_(Bookshelf)",
-                "http://www.gutenberg.org/wiki/Plays_(Bookshelf)"]
-
-bookTitles, bookNums = lx.parseBookshelves(bookshelves)
+bookTitles, bookNums = lx.parseBookshelves()
 # print("Book Titles:", bookTitles)
 
 # bookMap = lx.parseBookText(bookTitles, bookNums)

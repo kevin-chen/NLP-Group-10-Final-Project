@@ -10,4 +10,4 @@
 module purge; 
 source env/bin/activate;
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK;
-python main.py
+python determination-test.py

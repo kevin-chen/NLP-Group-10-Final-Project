@@ -1,8 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
 
+bookshelves = ["http://www.gutenberg.org/wiki/Children%27s_Literature_(Bookshelf)", 
+                "http://www.gutenberg.org/wiki/Children%27s_Fiction_(Bookshelf)",
+                "http://www.gutenberg.org/wiki/Adventure_(Bookshelf)",
+                "http://www.gutenberg.org/wiki/Fantasy_(Bookshelf)",
+                "http://www.gutenberg.org/wiki/Humor_(Bookshelf)",
+                "http://www.gutenberg.org/wiki/Mystery_Fiction_(Bookshelf)",
+                "http://www.gutenberg.org/wiki/Movie_Books_(Bookshelf)",
+                "http://www.gutenberg.org/wiki/Science_Fiction_(Bookshelf)",
+                "http://www.gutenberg.org/wiki/Children%27s_History_(Bookshelf)",
+                "http://www.gutenberg.org/wiki/Plays_(Bookshelf)"]
 
-def parseBookshelves(bookshelves):
+def parseBookshelves():
     bookTitles = []
     bookNums = []
     for bookshelfLink in bookshelves:
@@ -39,7 +49,6 @@ def parseBookText(bookTitles, bookNums):
                 pass
         if bookTextRequest:
             bookText = BeautifulSoup(bookTextRequest.content, "html.parser").text
-            # bookMap[bookNum] = bookText
             foundBookTitles.append(bookTitle)
             foundBookNums.append(bookNum)
             foundBookTexts.append(bookText)
