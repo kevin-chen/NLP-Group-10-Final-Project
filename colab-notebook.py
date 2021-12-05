@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pickle
 import json
 import re
+import pandas as pd
 
 def getBookTexts():
     def get_titles_and_urls(website_list):
@@ -136,11 +137,11 @@ def scrub():
         parse2 = []
         parse3 = []
         parse4 = []
-        print(full_text_texts[x])
         if full_text_texts[x] == None:
+            print('problem at: ', x, 'Nothing at full texts')
+            titles_from_text.append('')
             continue
         parse1.append(re.sub('\n', ' ', full_text_texts[x]))
-        print(parse1[0])
         if len(parse1[0].split('THE END'))==2:
             parse2.append(parse1[0].split('THE END')[0])
         elif len(parse1[0].split("End of the Project Gutenberg EBook"))==2:
@@ -167,7 +168,6 @@ def scrub():
             parse2.append(parse1[0].split('FINIS.')[0])
         else:
             print('problem at: ', x)
-    #     print('3. removing anything at ebook related at beginning of text')
         if len(parse2[0].split('START OF THIS PROJECT GUTENBERG EBOOK'))==2:
             parse3.append(parse2[0].split('START OF THIS PROJECT GUTENBERG EBOOK')[1])
         elif len(parse2[0].split("START OF THE PROJECT GUTENBERG EBOOK"))==2:
@@ -223,10 +223,55 @@ def scrub():
     with open('lexile_levels.data', 'rb') as f:
         books, authors, lexiles = pickle.load(f)
 
+    # search_results_books = []
+    # for i in range(0, len(books)):
+    #     for j in range(0, len(books[i])):
+    #         if books[i][j] == titles_from_text[i]:
+    #             print(i, j, books[i][j], titles_from_text[i])
+
     search_results_books = []
-    for i in range(0, len(books)):
-        for j in range(0, len(books[i])):
-            if books[i][j] == titles_from_text[i]:
-                print(i, j, books[i][j], titles_from_text[i])
+    for i, j in enumerate(books):
+        try:
+            search_results_books.append(j[0])
+        except:
+            search_results_books.append('')
+    print(search_results_books)
+
+    search_results_lexiles = []
+    for i, j in enumerate(lexiles):
+        try:
+            search_results_lexiles.append(j[0])
+        except:
+            search_results_lexiles.append('')
+    print(search_results_lexiles)
+
+    length_lexiles = []
+    for x in search_results_lexiles:
+        length_lexiles.append(x!='')
+    print('Number of scraped texts with associated lexile results: ', sum(length_lexiles))
+
+    for i in range(0, len(search_results_books)):
+        search_results_books[i] = re.sub('\n', ' ', search_results_books[i]).title()
+    print(search_results_books[:5])
+
+    labeled_data = pd.DataFrame()
+    labeled_lexiles = []
+    labeled_titles = []
+    labeled_text = []
+    for x in range(0, len(search_results_lexiles)):
+        if str(search_results_books[x]) == str(titles_from_text[x]):
+            labeled_lexiles.append(search_results_lexiles[x])
+            labeled_titles.append(titles_from_text[x])
+            labeled_text.append(full_text_texts[x])
+        else:
+            print(x, 'No title or lexile match to scrapped material')
+    labeled_data['Lexiles'] = labeled_lexiles
+    labeled_data['Titles'] = labeled_titles
+    labeled_data['Texts'] = labeled_text
+    print('Number of scraped texts that can be labeled with lexile levels: ', len(labeled_data))
+    labeled_data.sample(5)
+
+    print('total labeled titles: ',len(set(labeled_data['Titles'])))
+
 
 scrub()
