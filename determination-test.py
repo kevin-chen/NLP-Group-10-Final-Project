@@ -2,6 +2,7 @@ import lexile_library as lx
 import json
 import pickle
 import re
+import pandas as pd
 
 def part1():
     bookTitles, bookNums = lx.parseBookshelves()
@@ -35,7 +36,7 @@ def part2():
 
 def part3():
     with open('part1.data', 'rb') as f:
-        bookTitles, _, bookTexts = pickle.load(f)
+        bookTitles, bookTexts = pickle.load(f)
 
     parse1 = []
     parse2 = []
@@ -128,40 +129,72 @@ def part3():
         pickle.dump(titles_from_text, f)
 
 def part4():
+    with open('part1.data', 'rb') as f:
+        bookTitles, _, full_text_texts = pickle.load(f)
+
     with open('part2.data', 'rb') as f:
         foundBookTitles, foundBookAuthors, foundLexileScores = pickle.load(f)
     
     with open('part3.data', 'rb') as f:
         titles_from_text = pickle.load(f)
+
+    print(titles_from_text)
         
     # search_results_books = []
-    for i in range(0, len(foundBookTitles)):
-        for j in range(0, len(foundBookTitles[i])):
-            if foundBookTitles[i][j] == titles_from_text[i]:
-                print(i, j, foundBookTitles[i][j], titles_from_text[i])
+    # for i in range(0, len(foundBookTitles)):
+    #     for j in range(0, len(foundBookTitles[i])):
+    #         if foundBookTitles[i][j] == titles_from_text[i]:
+    #             print(i, j, foundBookTitles[i][j], titles_from_text[i])
     
-    search_results_books = []
-    for i, j in enumerate(foundBookTitles):
-        try:
-            search_results_books.append(j[0])
-        except:
-            search_results_books.append('')
-    print(search_results_books)
+    # search_results_books = []
+    # for i, j in enumerate(foundBookTitles):
+    #     try:
+    #         search_results_books.append(j[0])
+    #     except:
+    #         search_results_books.append('')
+    # print(search_results_books)
 
-    search_results_lexiles = []
-    for i, j in enumerate(lexiles):
-        try:
-            search_results_lexiles.append(j[0])
-        except:
-            search_results_lexiles.append('')
-    print(search_results_lexiles)
+    # search_results_lexiles = []
+    # for i, j in enumerate(foundLexileScores):
+    #     try:
+    #         search_results_lexiles.append(j[0])
+    #     except:
+    #         search_results_lexiles.append('')
+    # print(search_results_lexiles)
+
+    # length_lexiles = []
+    # for x in search_results_lexiles:
+    #     length_lexiles.append(x!='')
+    # print('Number of scraped texts with associated lexile results: ', sum(length_lexiles))
+
+    # for i in range(0, len(search_results_books)):
+    #     search_results_books[i] = re.sub('\n', ' ', search_results_books[i]).title()
+    # print(search_results_books[:5])
+
+    # labeled_data = pd.DataFrame()
+    # labeled_lexiles = []
+    # labeled_titles = []
+    # labeled_text = []
+    # for x in range(0, len(search_results_lexiles)):
+    #     if str(search_results_books[x]) == str(titles_from_text[x]):
+    #         labeled_lexiles.append(search_results_lexiles[x])
+    #         labeled_titles.append(titles_from_text[x])
+    #         labeled_text.append(full_text_texts[x])
+    #     else:
+    #         print(x, 'No title or lexile match to scrapped material')
+    # labeled_data['Lexiles'] = labeled_lexiles
+    # labeled_data['Titles'] = labeled_titles
+    # labeled_data['Texts'] = labeled_text
+    # print('Number of scraped texts that can be labeled with lexile levels: ', len(labeled_data))
+    # labeled_data.sample(5)
 
 
 
 def main():
     # part1()
     # part2()
-    part3()
+    # part3()
+    part4()
 
 if __name__ == "__main__":
     main()
