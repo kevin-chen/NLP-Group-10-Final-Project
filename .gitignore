@@ -132,3 +132,5 @@ dmypy.json
 
 *.json
 *.data
+*.pickle
+*.out
